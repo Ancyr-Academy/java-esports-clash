@@ -9,7 +9,7 @@ public class CreatePlayerUseCase {
     this.repository = repository;
   }
 
-  String execute(String name) {
+  IdResponse execute(String name) {
     var player = new Player(
         UUID.randomUUID().toString(),
         name
@@ -17,6 +17,6 @@ public class CreatePlayerUseCase {
 
     repository.save(player);
 
-    return player.getId();
+    return new IdResponse(player.getId());
   }
 }

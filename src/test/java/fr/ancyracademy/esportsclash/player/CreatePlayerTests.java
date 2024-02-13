@@ -9,9 +9,9 @@ public class CreatePlayerTests {
     var repository = new PlayerRepository();
     var useCase = new CreatePlayerUseCase(repository);
 
-    var id = useCase.execute("name");
+    var result = useCase.execute("name");
 
-    var expectedPlayer = new Player(id, "name");
+    var expectedPlayer = new Player(result.getId(), "name");
 
     Player actualPlayer = repository.find(expectedPlayer.getId());
     Assert.assertEquals(expectedPlayer.getName(), actualPlayer.getName());
