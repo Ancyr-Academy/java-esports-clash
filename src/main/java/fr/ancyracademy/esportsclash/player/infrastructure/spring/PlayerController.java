@@ -2,6 +2,7 @@ package fr.ancyracademy.esportsclash.player.infrastructure.spring;
 
 import an.awesome.pipelinr.Pipeline;
 import fr.ancyracademy.esportsclash.player.application.usecases.CreatePlayerCommand;
+import fr.ancyracademy.esportsclash.player.application.usecases.DeletePlayerCommand;
 import fr.ancyracademy.esportsclash.player.application.usecases.RenamePlayerCommand;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
 import org.springframework.http.HttpStatus;
@@ -30,5 +31,13 @@ public class PlayerController {
   ) {
     this.pipeline.send(new RenamePlayerCommand(id, dto.getName()));
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deletePlayer(
+      @PathVariable("id") String id
+  ) {
+    this.pipeline.send(new DeletePlayerCommand(id));
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }

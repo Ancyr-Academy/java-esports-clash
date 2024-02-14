@@ -21,4 +21,9 @@ public class SQLPlayerRepository implements PlayerRepository {
   public void save(Player player) {
     dataAccessor.save(player);
   }
+
+  @Override
+  public void delete(Player player) {
+    dataAccessor.delete(player);
+  }
 }

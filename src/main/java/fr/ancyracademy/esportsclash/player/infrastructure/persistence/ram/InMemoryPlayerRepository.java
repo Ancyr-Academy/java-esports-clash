@@ -19,4 +19,9 @@ public class InMemoryPlayerRepository implements PlayerRepository {
   public void save(Player player) {
     this.players.put(player.getId(), player);
   }
+
+  @Override
+  public void delete(Player player) {
+    this.players.remove(player.getId());
+  }
 }
