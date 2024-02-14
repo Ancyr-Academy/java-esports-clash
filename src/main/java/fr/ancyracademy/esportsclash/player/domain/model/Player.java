@@ -17,7 +17,7 @@ public class Player {
   public Player() {
 
   }
-  
+
   public Player(String id, String name) {
     this.id = id;
     this.name = name;
@@ -29,5 +29,9 @@ public class Player {
 
   public String getName() {
     return name;
+  }
+
+  public void rename(String newName) {
+    this.name = newName;
   }
 }

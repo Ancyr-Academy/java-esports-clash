@@ -5,13 +5,14 @@ import fr.ancyracademy.esportsclash.player.domain.model.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class InMemoryPlayerRepository implements PlayerRepository {
   private Map<String, Player> players = new HashMap<>();
 
   @Override
-  public Player findById(String id) {
-    return players.get(id);
+  public Optional<Player> findById(String id) {
+    return Optional.ofNullable(this.players.get(id));
   }
 
   @Override
