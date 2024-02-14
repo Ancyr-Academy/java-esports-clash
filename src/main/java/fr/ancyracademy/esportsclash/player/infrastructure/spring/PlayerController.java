@@ -9,10 +9,12 @@ import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.PlayerViewModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/players")
+@Transactional
 public class PlayerController {
   private final Pipeline pipeline;
 
