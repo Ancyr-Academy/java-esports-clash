@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash.player;
+package fr.ancyracademy.esportsclash.player.domain.viewmodel;
 
 public class IdResponse {
   private String id;

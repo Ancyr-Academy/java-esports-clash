@@ -1,6 +1,9 @@
 package fr.ancyracademy.esportsclash.player;
 
 import fr.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
+import fr.ancyracademy.esportsclash.player.application.ports.PlayerRepository;
+import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
+import fr.ancyracademy.esportsclash.player.infrastructure.spring.CreatePlayerDTO;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +45,7 @@ public class CreatePlayerE2ETests {
         IdResponse.class
     );
 
-    var player = playerRepository.find(idResponse.getId());
+    var player = playerRepository.findById(idResponse.getId());
 
     Assert.assertNotNull(player);
     Assert.assertEquals(dto.getName(), player.getName());

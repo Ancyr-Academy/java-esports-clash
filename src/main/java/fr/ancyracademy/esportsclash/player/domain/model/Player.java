@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash.player;
+package fr.ancyracademy.esportsclash.player.domain.model;
 
 public class Player {
   private String id;

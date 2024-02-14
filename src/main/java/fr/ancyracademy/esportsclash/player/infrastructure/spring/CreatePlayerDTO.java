@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash.player;
+package fr.ancyracademy.esportsclash.player.infrastructure.spring;
 
 public class CreatePlayerDTO {
   private String name;
