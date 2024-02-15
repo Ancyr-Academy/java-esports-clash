@@ -1,9 +1,13 @@
 package fr.ancyracademy.esportsclash.auth.domain.viewmodel;
 
 public class LoggedInUserViewModel {
-  private final String id;
-  private final String emailAddress;
-  private final String token;
+  private String id;
+  private String emailAddress;
+  private String token;
+
+  public LoggedInUserViewModel() {
+
+  }
 
   public LoggedInUserViewModel(String id, String emailAddress, String token) {
     this.id = id;
