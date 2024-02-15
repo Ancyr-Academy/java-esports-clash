@@ -41,7 +41,7 @@ public class RegisterTests {
     Assert.assertTrue(
         passwordHasher.match(
             command.getPassword(),
-            actualUser.getPassword()
+            actualUser.getPasswordHash()
         ));
   }
 

@@ -1,6 +1,15 @@
 package fr.ancyracademy.esportsclash.core.domain.exceptions;
 
 public class NotFoundException extends RuntimeException {
+  public NotFoundException(String entity) {
+    super(
+        String.format(
+            "%s not found",
+            entity
+        )
+    );
+  }
+  
   public NotFoundException(String entity, String key) {
     super(
         String.format(
