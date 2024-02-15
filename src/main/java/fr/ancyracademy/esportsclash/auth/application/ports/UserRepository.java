@@ -4,4 +4,5 @@ import fr.ancyracademy.esportsclash.auth.domain.model.User;
 import fr.ancyracademy.esportsclash.core.infrastructure.persistence.BaseRepository;
 
 public interface UserRepository extends BaseRepository<User> {
+  boolean isEmailAddressAvailable(String emailAddress);
 }
