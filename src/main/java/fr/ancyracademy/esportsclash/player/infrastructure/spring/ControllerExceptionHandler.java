@@ -1,5 +1,6 @@
 package fr.ancyracademy.esportsclash.player.infrastructure.spring;
 
+import fr.ancyracademy.esportsclash.core.domain.exceptions.BadRequestException;
 import fr.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,8 +14,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.notFound().build();
   }
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+  @ExceptionHandler(BadRequestException.class)
+  ResponseEntity<?> handleBadRequestException(BadRequestException e) {
     return ResponseEntity.badRequest().build();
   }
 }

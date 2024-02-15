@@ -1,5 +1,6 @@
 package fr.ancyracademy.esportsclash.auth;
 
+import fr.ancyracademy.esportsclash.auth.application.exceptions.EmailAddressUnavailableException;
 import fr.ancyracademy.esportsclash.auth.application.infrastructure.persistence.ram.InMemoryUserRepository;
 import fr.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.BcryptPasswordHasher;
@@ -60,14 +61,10 @@ public class RegisterTests {
     );
 
     var commandHandler = createCommandHandler();
-    var exception = Assert.assertThrows(
-        IllegalArgumentException.class,
-        () -> commandHandler.handle(command)
-    );
 
-    Assert.assertEquals(
-        "Email address is already in use",
-        exception.getMessage()
+    Assert.assertThrows(
+        EmailAddressUnavailableException.class,
+        () -> commandHandler.handle(command)
     );
   }
 }
