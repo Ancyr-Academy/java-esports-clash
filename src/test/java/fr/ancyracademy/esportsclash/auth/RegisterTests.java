@@ -1,6 +1,7 @@
 package fr.ancyracademy.esportsclash.auth;
 
 import fr.ancyracademy.esportsclash.auth.application.infrastructure.persistence.ram.InMemoryUserRepository;
+import fr.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.BcryptPasswordHasher;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.PasswordHasher;
 import fr.ancyracademy.esportsclash.auth.application.usecases.RegisterCommand;
@@ -10,8 +11,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RegisterCommandHandlerTests {
-  private InMemoryUserRepository repository = new InMemoryUserRepository();
+public class RegisterTests {
+  private UserRepository repository = new InMemoryUserRepository();
   private PasswordHasher passwordHasher = new BcryptPasswordHasher();
 
   public RegisterCommandHandler createCommandHandler() {

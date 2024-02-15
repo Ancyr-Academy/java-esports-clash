@@ -12,4 +12,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
   ResponseEntity<?> handleNotFoundException(NotFoundException e) {
     return ResponseEntity.notFound().build();
   }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+    return ResponseEntity.badRequest().build();
+  }
 }

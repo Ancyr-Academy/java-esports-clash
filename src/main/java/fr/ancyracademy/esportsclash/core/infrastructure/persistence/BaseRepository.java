@@ -10,4 +10,6 @@ public interface BaseRepository<T extends BaseEntity> {
   public void save(T entity);
 
   public void delete(T entity);
+
+  public void clear();
 }
