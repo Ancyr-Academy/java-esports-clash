@@ -32,11 +32,11 @@ public class ConcreteJwtService implements JwtService {
     var expiresAt = createdAt.plusSeconds(this.expiration);
 
     return Jwts.builder()
-        .setClaims(claims)
-        .setIssuedAt(
+        .claims(claims)
+        .issuedAt(
             Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant())
         )
-        .setExpiration(
+        .expiration(
             Date.from(expiresAt.atZone(ZoneId.systemDefault()).toInstant())
         )
         .signWith(secretKey)
@@ -44,7 +44,7 @@ public class ConcreteJwtService implements JwtService {
   }
 
   public AuthUser parse(String token) {
-    var claims = jwtParser.parseClaimsJws(token).getBody();
+    var claims = jwtParser.parseSignedClaims(token).getPayload();
 
     var id = claims.getSubject();
     var emailAddress = claims.get("emailAddress", String.class);
