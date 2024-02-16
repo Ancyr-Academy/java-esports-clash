@@ -18,7 +18,7 @@ public class DeletePlayerCommandHandler implements Command.Handler<DeletePlayerC
     );
 
     playerRepository.delete(player);
-    
+
     return null;
   }
 }

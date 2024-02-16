@@ -1,38 +1,17 @@
 package fr.ancyracademy.esportsclash.auth;
 
-import fr.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
-import fr.ancyracademy.esportsclash.auth.application.ports.UserRepository;
+import fr.ancyracademy.esportsclash.IntegrationTests;
 import fr.ancyracademy.esportsclash.auth.domain.model.User;
 import fr.ancyracademy.esportsclash.auth.infrastructure.spring.RegisterDTO;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgreSQLTestConfiguration.class)
-@Transactional
-public class RegisterE2ETests {
-  @Autowired
-  private MockMvc mockMvc;
-
-  @Autowired
-  private ObjectMapper objectMapper;
-
-  @Autowired
-  private UserRepository userRepository;
-
+public class RegisterE2ETests extends IntegrationTests {
   @BeforeEach
   public void setup() {
     userRepository.clear();

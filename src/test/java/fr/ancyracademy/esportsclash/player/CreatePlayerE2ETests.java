@@ -1,33 +1,18 @@
 package fr.ancyracademy.esportsclash.player;
 
-import fr.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
+import fr.ancyracademy.esportsclash.IntegrationTests;
 import fr.ancyracademy.esportsclash.player.application.ports.PlayerRepository;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
 import fr.ancyracademy.esportsclash.player.infrastructure.spring.CreatePlayerDTO;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgreSQLTestConfiguration.class)
-@Transactional
-public class CreatePlayerE2ETests {
-  @Autowired
-  private MockMvc mockMvc;
 
-  @Autowired
-  private ObjectMapper objectMapper;
-
+public class CreatePlayerE2ETests extends IntegrationTests {
   @Autowired
   private PlayerRepository playerRepository;
 
@@ -38,7 +23,9 @@ public class CreatePlayerE2ETests {
     var result = mockMvc
         .perform(MockMvcRequestBuilders.post("/players")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(dto)))
+            .content(objectMapper.writeValueAsString(dto))
+            .header("Authorization", createJWT())
+        )
         .andExpect(MockMvcResultMatchers.status().isCreated())
         .andReturn();
 
