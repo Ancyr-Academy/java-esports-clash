@@ -8,18 +8,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Team extends BaseEntity<Team> {
-  private String id;
   private String name;
   private Set<TeamMember> members;
 
   public Team(String id, String name) {
-    this.id = id;
+    super(id);
     this.name = name;
     this.members = new HashSet<>();
   }
 
   private Team(String id, String name, Set<TeamMember> members) {
-    this.id = id;
+    super(id);
     this.name = name;
     this.members = members;
   }
