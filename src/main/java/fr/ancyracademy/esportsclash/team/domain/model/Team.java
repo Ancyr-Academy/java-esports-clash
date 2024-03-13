@@ -1,10 +1,12 @@
 package fr.ancyracademy.esportsclash.team.domain.model;
 
+import fr.ancyracademy.esportsclash.core.domain.model.BaseEntity;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Team {
+public class Team extends BaseEntity {
   private String id;
   private String name;
   private Set<TeamMember> members;
@@ -44,6 +46,10 @@ public class Team {
     return this.members
         .stream()
         .anyMatch(member -> member.playerId.equals(playerId) && member.role == role);
+  }
+
+  public String getName() {
+    return name;
   }
 
   class TeamMember {
