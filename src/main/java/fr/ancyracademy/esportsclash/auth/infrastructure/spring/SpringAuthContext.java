@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash.auth.application.infrastructure.auth.spring;
+package fr.ancyracademy.esportsclash.auth.infrastructure.spring;
 
 import fr.ancyracademy.esportsclash.auth.application.ports.AuthContext;
 import fr.ancyracademy.esportsclash.auth.domain.model.AuthUser;

@@ -1,12 +1,12 @@
 package fr.ancyracademy.esportsclash.auth;
 
-import fr.ancyracademy.esportsclash.auth.application.infrastructure.persistence.ram.InMemoryUserRepository;
 import fr.ancyracademy.esportsclash.auth.application.services.jwtservice.ConcreteJwtService;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.BcryptPasswordHasher;
 import fr.ancyracademy.esportsclash.auth.application.usecases.LoginCommand;
 import fr.ancyracademy.esportsclash.auth.application.usecases.LoginCommandHandler;
 import fr.ancyracademy.esportsclash.auth.domain.model.User;
 import fr.ancyracademy.esportsclash.auth.domain.viewmodel.LoggedInUserViewModel;
+import fr.ancyracademy.esportsclash.auth.infrastructure.persistence.ram.InMemoryUserRepository;
 import fr.ancyracademy.esportsclash.core.domain.exceptions.BadRequestException;
 import fr.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
 import org.junit.Assert;

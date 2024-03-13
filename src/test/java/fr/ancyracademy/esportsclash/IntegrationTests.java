@@ -29,9 +29,12 @@ public class IntegrationTests {
   protected ObjectMapper objectMapper;
 
   protected String createJWT() {
-    var user = new User("123", "contact@ancyracademy.fr", "");
-    userRepository.save(user);
-    var jwt = "Bearer " + jwtService.tokenize(user);
-    return jwt;
+    var user = userRepository.findByEmailAddress("contact@ancyracademy.fr").orElse(null);
+    if (user == null) {
+      user = new User("123", "contact@ancyracademy.fr", "");
+      userRepository.save(user);
+    }
+
+    return "Bearer " + jwtService.tokenize(user);
   }
 }

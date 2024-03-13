@@ -18,7 +18,7 @@ public class AuthServicesConfiguration {
   public JwtService jwtService() {
     return new ConcreteJwtService(
         "supersekretpleasechangeitwithsomethingbetter",
-        60
+        3600
     );
   }
 }

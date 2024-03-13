@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash.auth.application.infrastructure.persistence.ram;
+package fr.ancyracademy.esportsclash.auth.infrastructure.persistence.ram;
 
 import fr.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import fr.ancyracademy.esportsclash.auth.domain.model.User;

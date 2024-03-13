@@ -5,6 +5,7 @@ import fr.ancyracademy.esportsclash.auth.application.usecases.LoginCommand;
 import fr.ancyracademy.esportsclash.auth.application.usecases.RegisterCommand;
 import fr.ancyracademy.esportsclash.auth.domain.viewmodel.LoggedInUserViewModel;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Transactional
 public class AuthController {
   private final Pipeline pipeline;
 

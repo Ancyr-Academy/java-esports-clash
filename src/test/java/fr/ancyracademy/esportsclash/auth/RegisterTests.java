@@ -1,13 +1,13 @@
 package fr.ancyracademy.esportsclash.auth;
 
 import fr.ancyracademy.esportsclash.auth.application.exceptions.EmailAddressUnavailableException;
-import fr.ancyracademy.esportsclash.auth.application.infrastructure.persistence.ram.InMemoryUserRepository;
 import fr.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.BcryptPasswordHasher;
 import fr.ancyracademy.esportsclash.auth.application.services.passwordhasher.PasswordHasher;
 import fr.ancyracademy.esportsclash.auth.application.usecases.RegisterCommand;
 import fr.ancyracademy.esportsclash.auth.application.usecases.RegisterCommandHandler;
 import fr.ancyracademy.esportsclash.auth.domain.model.User;
+import fr.ancyracademy.esportsclash.auth.infrastructure.persistence.ram.InMemoryUserRepository;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
