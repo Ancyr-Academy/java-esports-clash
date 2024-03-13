@@ -4,7 +4,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class BaseEntity<T> {
   @Id
   protected String id;
 
@@ -23,4 +23,6 @@ public abstract class BaseEntity {
   public void setId(String id) {
     this.id = id;
   }
+
+  public abstract T deepClone();
 }

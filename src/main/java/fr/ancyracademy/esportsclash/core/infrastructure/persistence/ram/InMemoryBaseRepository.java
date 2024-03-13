@@ -7,17 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class InMemoryBaseRepository<T extends BaseEntity> implements BaseRepository<T> {
+public abstract class InMemoryBaseRepository<T extends BaseEntity<T>> implements BaseRepository<T> {
   protected Map<String, T> entities = new HashMap<>();
 
   @Override
   public Optional<T> findById(String id) {
-    return Optional.ofNullable(this.entities.get(id));
+    var entity = this.entities.get(id);
+    return entity == null ? Optional.empty() : Optional.of(entity.deepClone());
   }
 
   @Override
   public void save(T entity) {
-    this.entities.put(entity.getId(), entity);
+    this.entities.put(entity.getId(), entity.deepClone());
   }
 
   @Override

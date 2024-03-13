@@ -15,14 +15,14 @@ public class CreateTeamCommandHandler implements Command.Handler<CreateTeamComma
   }
 
   @Override
-  public IdResponse handle(CreateTeamCommand createTeamCommand) {
+  public IdResponse handle(CreateTeamCommand command) {
     var team = new Team(
         UUID.randomUUID().toString(),
-        createTeamCommand.getName()
+        command.getName()
     );
 
     teamRepository.save(team);
-    
+
     return new IdResponse(team.getId());
   }
 }
