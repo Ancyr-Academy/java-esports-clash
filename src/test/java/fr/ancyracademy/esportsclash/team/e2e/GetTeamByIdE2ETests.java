@@ -6,16 +6,15 @@ import fr.ancyracademy.esportsclash.player.domain.model.Player;
 import fr.ancyracademy.esportsclash.team.application.ports.TeamRepository;
 import fr.ancyracademy.esportsclash.team.domain.model.Role;
 import fr.ancyracademy.esportsclash.team.domain.model.Team;
-import fr.ancyracademy.esportsclash.team.infrastructure.spring.dto.RemovePlayerFromTeamDTO;
+import fr.ancyracademy.esportsclash.team.domain.viewmodel.TeamViewModel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-public class RemovePlayerFromTeamE2ETests extends IntegrationTests {
+public class GetTeamByIdE2ETests extends IntegrationTests {
   Team team;
   Player player;
 
@@ -34,26 +33,33 @@ public class RemovePlayerFromTeamE2ETests extends IntegrationTests {
 
     playerRepository.save(player);
     teamRepository.save(team);
+
+    clearDatabaseCache();
   }
 
   @Test
-  public void shouldRemovePlayerFromTeam() throws Exception {
-    var dto = new RemovePlayerFromTeamDTO(
-        player.getId(),
-        team.getId()
-    );
-
-    mockMvc
-        .perform(MockMvcRequestBuilders.post("/teams/remove-player-from-team")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(dto))
-            .header("Authorization", createJWT())
+  public void shouldGetTheTeam() throws Exception {
+    var result = mockMvc
+        .perform(
+            MockMvcRequestBuilders
+                .get("/teams/" + team.getId())
+                .header("Authorization", createJWT())
         )
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andReturn();
 
-    var updatedTeam = teamRepository.findById(team.getId()).get();
+    var viewModel = objectMapper.readValue(
+        result.getResponse().getContentAsString(),
+        TeamViewModel.class
+    );
 
-    Assert.assertFalse(updatedTeam.hasMember(player.getId(), Role.TOP));
+    Assert.assertEquals(team.getId(), viewModel.getId());
+    Assert.assertEquals(team.getName(), viewModel.getName());
+
+    var firstMember = viewModel.getMembers().getFirst();
+    Assert.assertEquals(player.getId(), firstMember.getPlayerId());
+    Assert.assertEquals(player.getName(), firstMember.getPlayerName());
+    Assert.assertEquals("TOP", firstMember.getRole());
+
   }
 }

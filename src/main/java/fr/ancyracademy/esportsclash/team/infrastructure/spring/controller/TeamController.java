@@ -2,10 +2,8 @@ package fr.ancyracademy.esportsclash.team.infrastructure.spring.controller;
 
 import an.awesome.pipelinr.Pipeline;
 import fr.ancyracademy.esportsclash.player.domain.viewmodel.IdResponse;
-import fr.ancyracademy.esportsclash.team.application.usecases.AddPlayerToTeamCommand;
-import fr.ancyracademy.esportsclash.team.application.usecases.CreateTeamCommand;
-import fr.ancyracademy.esportsclash.team.application.usecases.DeleteTeamCommand;
-import fr.ancyracademy.esportsclash.team.application.usecases.RemovePlayerFromTeamCommand;
+import fr.ancyracademy.esportsclash.team.application.usecases.*;
+import fr.ancyracademy.esportsclash.team.domain.viewmodel.TeamViewModel;
 import fr.ancyracademy.esportsclash.team.infrastructure.spring.dto.AddPlayerToTeamDTO;
 import fr.ancyracademy.esportsclash.team.infrastructure.spring.dto.CreateTeamDTO;
 import fr.ancyracademy.esportsclash.team.infrastructure.spring.dto.RemovePlayerFromTeamDTO;
@@ -24,6 +22,12 @@ public class TeamController {
     this.pipeline = pipeline;
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<TeamViewModel> getTeamById(@PathVariable String id) {
+    var result = this.pipeline.send(new GetTeamByIdCommand(id));
+    return new ResponseEntity<>(result, HttpStatus.OK);
+  }
+
   @PostMapping
   public ResponseEntity<IdResponse> createTeam(@RequestBody CreateTeamDTO dto) {
     var result = this.pipeline.send(new CreateTeamCommand(dto.getName()));
@@ -33,8 +37,8 @@ public class TeamController {
   @PostMapping("/add-player-to-team")
   public ResponseEntity<Void> addPlayerToTeam(@RequestBody AddPlayerToTeamDTO dto) {
     var result = this.pipeline.send(new AddPlayerToTeamCommand(
-        dto.getTeamId(),
         dto.getPlayerId(),
+        dto.getTeamId(),
         dto.getRole()
     ));
 
@@ -44,8 +48,8 @@ public class TeamController {
   @PostMapping("/remove-player-from-team")
   public ResponseEntity<Void> removePlayerFromTeam(@RequestBody RemovePlayerFromTeamDTO dto) {
     var result = this.pipeline.send(new RemovePlayerFromTeamCommand(
-        dto.getTeamId(),
-        dto.getPlayerId()
+        dto.getPlayerId(),
+        dto.getTeamId()
     ));
 
     return new ResponseEntity<>(result, HttpStatus.OK);
