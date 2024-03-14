@@ -124,6 +124,10 @@ public class Team extends BaseEntity<Team> {
       return new TeamMember(this.id, this.playerId, this.teamId, this.role);
     }
 
+    public String getPlayerId() {
+      return playerId;
+    }
+
     public Player getPlayer() {
       return player;
     }

@@ -1,5 +1,6 @@
 package fr.ancyracademy.esportsclash.team.usecases;
 
+import fr.ancyracademy.esportsclash.core.domain.exceptions.BadRequestException;
 import fr.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
 import fr.ancyracademy.esportsclash.player.domain.model.Player;
 import fr.ancyracademy.esportsclash.player.infrastructure.persistence.ram.InMemoryPlayerRepository;
@@ -91,6 +92,31 @@ public class AddPlayerToTeamTests {
 
     Assert.assertEquals(
         "Team with the key garbage not found",
+        exception.getMessage()
+    );
+  }
+
+  @Test
+  void whenPlayerIsAlreadyInAnotherTeam_shouldThrow() {
+    var otherTeam = new Team("2", "OtherTeam");
+    otherTeam.addMember(player.getId(), Role.TOP);
+    teamRepository.save(otherTeam);
+
+    var command = new AddPlayerToTeamCommand(
+        player.getId(),
+        team.getId(),
+        Role.TOP
+    );
+
+    var commandHandler = createHandler();
+
+    var exception = Assert.assertThrows(
+        BadRequestException.class,
+        () -> commandHandler.handle(command)
+    );
+
+    Assert.assertEquals(
+        "This player is already in a team",
         exception.getMessage()
     );
   }

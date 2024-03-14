@@ -27,9 +27,6 @@ public class AddPlayerToTeamE2ETests extends IntegrationTests {
 
   @BeforeEach
   public void setUp() {
-    teamRepository.clear();
-    playerRepository.clear();
-
     team = new Team("123", "team");
     player = new Player("123", "player");
 
@@ -57,5 +54,27 @@ public class AddPlayerToTeamE2ETests extends IntegrationTests {
     var updatedTeam = teamRepository.findById(team.getId()).get();
 
     Assert.assertTrue(updatedTeam.hasMember(player.getId(), Role.TOP));
+  }
+
+  @Test
+  public void whenPlayerIsAlreadyInAnotherTeam_shouldThrow() throws Exception {
+    var anotherTeam = new Team("456", "anotherTeam");
+    anotherTeam.addMember(player.getId(), Role.TOP);
+    teamRepository.save(anotherTeam);
+
+    var dto = new AddPlayerToTeamDTO(
+        player.getId(),
+        team.getId(),
+        "TOP"
+    );
+
+    mockMvc
+        .perform(MockMvcRequestBuilders.post("/teams/add-player-to-team")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(dto))
+            .header("Authorization", createJWT())
+        )
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andReturn();
   }
 }
