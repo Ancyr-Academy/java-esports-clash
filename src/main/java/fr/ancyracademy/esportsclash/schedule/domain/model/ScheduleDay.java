@@ -2,6 +2,7 @@ package fr.ancyracademy.esportsclash.schedule.domain.model;
 
 import fr.ancyracademy.esportsclash.core.domain.model.BaseEntity;
 import fr.ancyracademy.esportsclash.team.domain.model.Team;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.EnumMap;
@@ -9,10 +10,24 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Entity
+@Table(name = "schedule_days")
 public class ScheduleDay extends BaseEntity<ScheduleDay> {
+  @Column(name = "day")
   private LocalDate day;
 
+  @OneToMany(
+      mappedBy = "scheduleDay",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true,
+      fetch = FetchType.EAGER
+  )
+  @MapKeyEnumerated(EnumType.STRING)
   private Map<Moment, Match> matches;
+
+  public ScheduleDay() {
+
+  }
 
   public ScheduleDay(String id, LocalDate day) {
     super(id);
@@ -44,6 +59,7 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
 
     var match = new Match(
         UUID.randomUUID().toString(),
+        this.getId(),
         t1.getId(),
         t2.getId()
     );

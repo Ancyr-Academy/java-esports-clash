@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class SQLScheduleDayRepository extends SQLBaseRepository<ScheduleDay> implements ScheduleDayRepository {
-  SQLScheduleDayRepository(EntityManager entityManager) {
+  public SQLScheduleDayRepository(EntityManager entityManager) {
     super(entityManager);
   }
 
@@ -20,11 +20,21 @@ public class SQLScheduleDayRepository extends SQLBaseRepository<ScheduleDay> imp
 
   @Override
   public Optional<ScheduleDay> findByDate(LocalDate date) {
-    return Optional.empty();
+    return entityManager.createQuery(
+            "SELECT sd FROM ScheduleDay sd WHERE sd.day = :date", ScheduleDay.class)
+        .setParameter("date", date)
+        .getResultList()
+        .stream()
+        .findFirst();
   }
 
   @Override
   public Optional<ScheduleDay> findByMatchId(String matchId) {
-    return Optional.empty();
+    return entityManager.createQuery(
+            "SELECT sd FROM ScheduleDay sd JOIN sd.matches m WHERE m.id = :matchId", ScheduleDay.class)
+        .setParameter("matchId", matchId)
+        .getResultList()
+        .stream()
+        .findFirst();
   }
 }
