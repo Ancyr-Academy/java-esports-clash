@@ -22,4 +22,9 @@ public class SQLScheduleDayRepository extends SQLBaseRepository<ScheduleDay> imp
   public Optional<ScheduleDay> findByDate(LocalDate date) {
     return Optional.empty();
   }
+
+  @Override
+  public Optional<ScheduleDay> findByMatchId(String matchId) {
+    return Optional.empty();
+  }
 }

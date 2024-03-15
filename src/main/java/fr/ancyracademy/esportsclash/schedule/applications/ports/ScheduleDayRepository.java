@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface ScheduleDayRepository extends BaseRepository<ScheduleDay> {
   Optional<ScheduleDay> findByDate(LocalDate date);
+
+  Optional<ScheduleDay> findByMatchId(String matchId);
 }

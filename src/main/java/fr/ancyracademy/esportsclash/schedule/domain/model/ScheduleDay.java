@@ -67,6 +67,17 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
         Optional.empty();
   }
 
+  public boolean containsMatch(String matchId) {
+    return matches
+        .values()
+        .stream()
+        .anyMatch(match -> match.getId().equals(matchId));
+  }
+
+  public boolean hasMatches() {
+    return !matches.isEmpty();
+  }
+
   public LocalDate getDay() {
     return day;
   }
