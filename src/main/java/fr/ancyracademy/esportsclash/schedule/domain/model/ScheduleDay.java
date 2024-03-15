@@ -14,9 +14,16 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
 
   private Map<Moment, Match> matches;
 
-  public ScheduleDay(String id) {
+  public ScheduleDay(String id, LocalDate day) {
     super(id);
-    matches = new EnumMap<>(Moment.class);
+    this.day = day;
+    this.matches = new EnumMap<>(Moment.class);
+  }
+
+  public ScheduleDay(String id, LocalDate day, Map<Moment, Match> matches) {
+    super(id);
+    this.day = day;
+    this.matches = matches;
   }
 
   public Match organize(Team t1, Team t2, Moment moment) {
@@ -54,14 +61,29 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
     moment.ifPresent(matches::remove);
   }
 
-  public Optional<Moment> getAt(Moment moment) {
+  public Optional<Match> getAt(Moment moment) {
     return matches.containsKey(moment) ?
-        Optional.of(moment) :
+        Optional.of(matches.get(moment)) :
         Optional.empty();
+  }
+
+  public LocalDate getDay() {
+    return day;
   }
 
   @Override
   public ScheduleDay deepClone() {
-    return null;
+    return new ScheduleDay(
+        getId(),
+        day,
+        matches
+            .keySet()
+            .stream()
+            .collect(
+                () -> new EnumMap<>(Moment.class),
+                (map, moment) -> map.put(moment, matches.get(moment).deepClone()),
+                Map::putAll
+            )
+    );
   }
 }

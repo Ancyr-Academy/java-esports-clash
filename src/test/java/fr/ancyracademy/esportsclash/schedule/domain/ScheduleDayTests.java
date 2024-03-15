@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 public class ScheduleDayTests {
   Team createTeam(String id) {
     var name = "Team " + id;
@@ -42,7 +44,7 @@ public class ScheduleDayTests {
       var t2 = createTeam("t2");
       var moment = Moment.MORNING;
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
 
       scheduleDay.organize(t1, t2, moment);
 
@@ -57,7 +59,7 @@ public class ScheduleDayTests {
       var t3 = createTeam("t3");
       var t4 = createTeam("t4");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
       scheduleDay.organize(t1, t2, Moment.MORNING);
 
       var exception = Assert.assertThrows(
@@ -74,7 +76,7 @@ public class ScheduleDayTests {
       var t2 = createTeam("t2");
       var t3 = createTeam("t3");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
       scheduleDay.organize(t1, t2, Moment.MORNING);
 
       var exception = Assert.assertThrows(
@@ -91,7 +93,7 @@ public class ScheduleDayTests {
       var t2 = createTeam("t2");
       var t3 = createTeam("t3");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
       scheduleDay.organize(t1, t2, Moment.AFTERNOON);
 
       var exception = Assert.assertThrows(
@@ -107,7 +109,7 @@ public class ScheduleDayTests {
       var t1 = createIncompleteTeam("t1");
       var t2 = createTeam("t2");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
 
       var exception = Assert.assertThrows(
           IllegalStateException.class,
@@ -122,7 +124,7 @@ public class ScheduleDayTests {
       var t1 = createTeam("t1");
       var t2 = createIncompleteTeam("t2");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
 
       var exception = Assert.assertThrows(
           IllegalStateException.class,
@@ -140,7 +142,7 @@ public class ScheduleDayTests {
       var t1 = createTeam("t1");
       var t2 = createTeam("t2");
 
-      var scheduleDay = new ScheduleDay("1");
+      var scheduleDay = new ScheduleDay("1", LocalDate.now());
       var organizedMatch = scheduleDay.organize(t1, t2, Moment.MORNING);
 
       scheduleDay.cancel(organizedMatch.getId());

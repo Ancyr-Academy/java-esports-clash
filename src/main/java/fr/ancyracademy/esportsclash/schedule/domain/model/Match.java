@@ -19,6 +19,10 @@ public class Match extends BaseEntity<Match> {
 
   @Override
   public Match deepClone() {
-    return null;
+    return new Match(
+        getId(),
+        firstId,
+        secondId
+    );
   }
 }
