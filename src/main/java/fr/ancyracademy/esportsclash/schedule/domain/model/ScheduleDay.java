@@ -18,7 +18,7 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
     matches = new EnumMap<>(Moment.class);
   }
 
-  public void organize(Team t1, Team t2, Moment moment) {
+  public Match organize(Team t1, Team t2, Moment moment) {
     if (matches.containsKey(moment)) {
       throw new IllegalStateException("Moment " + moment + " is already taken");
     }
@@ -41,10 +41,16 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
     );
 
     matches.put(moment, match);
+
+    return match;
   }
 
-  public void cancel() {
+  public void cancel(String matchId) {
+    var moment = matches.keySet().stream()
+        .filter(m -> matches.get(m).getId().equals(matchId))
+        .findFirst();
 
+    moment.ifPresent(matches::remove);
   }
 
   public Optional<Moment> getAt(Moment moment) {
