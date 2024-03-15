@@ -14,7 +14,8 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
 
   private Map<Moment, Match> matches;
 
-  public ScheduleDay() {
+  public ScheduleDay(String id) {
+    super(id);
     matches = new EnumMap<>(Moment.class);
   }
 
