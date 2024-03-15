@@ -78,6 +78,10 @@ public class Team extends BaseEntity<Team> {
     return members;
   }
 
+  public boolean isComplete() {
+    return this.members.size() == 5;
+  }
+
   @Override
   public Team deepClone() {
     return new Team(

@@ -66,5 +66,28 @@ public class TeamTests {
 
       Assert.assertEquals("Player not in team", exception.getMessage());
     }
+
+    @Test
+    void whenTeamHas4Members_shouldNotBeComplete() {
+      var team = new Team("123", "Team 1");
+      team.addMember("1", Role.TOP);
+      team.addMember("2", Role.JUNGLE);
+      team.addMember("3", Role.MIDDLE);
+      team.addMember("4", Role.BOTTOM);
+
+      Assert.assertFalse(team.isComplete());
+    }
+
+    @Test
+    void whenTeamHas5Members_shouldNotBeComplete() {
+      var team = new Team("123", "Team 1");
+      team.addMember("1", Role.TOP);
+      team.addMember("2", Role.JUNGLE);
+      team.addMember("3", Role.MIDDLE);
+      team.addMember("4", Role.BOTTOM);
+      team.addMember("5", Role.SUPPORT);
+
+      Assert.assertTrue(team.isComplete());
+    }
   }
 }
